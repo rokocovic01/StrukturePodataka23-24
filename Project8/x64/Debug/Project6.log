@@ -1,0 +1,9 @@
+﻿  zadatak.c
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\stdlib.h(52,1): warning C4005: 'EXIT_SUCCESS': macro redefinition
+C:\Users\nikol\Desktop\StrukturePodataka\Project8\zadatak.c(2): message : see previous definition of 'EXIT_SUCCESS'
+C:\Users\nikol\Desktop\StrukturePodataka\Project8\zadatak.c(71,12): warning C4477: 'printf' : format string '%d' requires an argument of type 'int', but variadic argument 2 has type 'position'
+C:\Users\nikol\Desktop\StrukturePodataka\Project8\zadatak.c(71,12): warning C4313: 'printf': '%d' in format string conflicts with argument 2 of type 'position'
+C:\Users\nikol\Desktop\StrukturePodataka\Project8\zadatak.c(101,14): warning C4098: 'inorder': 'void' function returning a value
+C:\Users\nikol\Desktop\StrukturePodataka\Project8\zadatak.c(111,14): warning C4098: 'preorder': 'void' function returning a value
+C:\Users\nikol\Desktop\StrukturePodataka\Project8\zadatak.c(121,14): warning C4098: 'postorder': 'void' function returning a value
+  Project6.vcxproj -> C:\Users\nikol\Desktop\StrukturePodataka\Project8\x64\Debug\Project6.exe
