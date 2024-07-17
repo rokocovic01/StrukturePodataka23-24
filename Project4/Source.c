@@ -16,6 +16,8 @@ typedef struct poly {
 int insertFirst(position);
 int insertSecond(position);
 int printPoly(position);
+int sum(position, position, position);
+int multiply(position, position, position);
 
 int main() {
 	poly Head1 = {
@@ -28,13 +30,28 @@ int main() {
 		.exponent = 0,
 		.next = NULL
 	};
-	
+	poly HeadSum = {
+		.coef = 0,
+		.exponent = 0,
+		.next = NULL
+	};
+	poly HeadMultiply = {
+		.coef = 0,
+		.exponent = 0,
+		.next = NULL
+	};
 	insertFirst(&Head1);
 	insertSecond(&Head2);
 	printf("First polynome: ");
 	printPoly(Head1.next);
 	printf("\nSecond polynome: ");
 	printPoly(Head2.next);
+	sum(&Head1, &Head2, &HeadSum);
+	printf("\nSum: ");
+	printPoly(HeadSum.next);
+	multiply(&Head1, &Head2, &HeadMultiply);
+	printf("\nMultiple: ");
+	printPoly(HeadMultiply.next);
 	
 	return 0;
 }
@@ -117,6 +134,93 @@ int printPoly(position p)
 	{
 		printf("%dx^%d ", p->coef, p->exponent);
 		p = p->next;
+	}
+	return 0;
+}
+
+int sum(position p, position q, position r) {
+	while (p->next != NULL && q->next != NULL)
+	{
+		position s = NULL;
+		s = (position)malloc(sizeof(struct poly));
+		if (s == NULL)
+		{
+			printf("Unsuccessful memory alocation!\n");
+			return FILE_DIDNT_OPEN_ERROR;
+		}
+		s->next = NULL;
+
+		if (p->next->exponent < q->next->exponent)
+		{
+			s->exponent = p->next->exponent;
+			s->coef = p->next->coef;
+			p = p->next;
+		}
+		else if (p->next->exponent > q->next->exponent)
+		{
+			s->exponent = q->next->exponent;
+			s->coef = q->next->coef;
+			q = q->next;
+		}
+		else
+		{
+			s->exponent = p->next->exponent;
+			s->coef = (p->next->coef + q->next->coef);
+			p = p->next;
+			q = q->next;
+		}
+		r->next = s;
+		r = s;
+	}
+	position temp = NULL;
+	if (p->next == NULL)
+		temp = q->next;
+	else
+		temp = p->next;
+	while (temp != NULL)
+	{
+		position s = NULL;
+		s = (position)malloc(sizeof(poly));
+		if (s == NULL)
+		{
+			printf("Unsuccessful memory alocation!\n");
+			return FILE_DIDNT_OPEN_ERROR;
+		}
+		s->next = NULL;
+		s->exponent = temp->exponent;
+		s->coef = temp->coef;
+		r->next = s;
+		r = s;
+		temp = temp->next;
+	}
+	return 0;
+}
+
+int multiply(position p, position q, position r) {
+	position first = p->next;
+	position second = q->next;
+	poly x;
+	position s = NULL;
+	s = (position)malloc(sizeof(poly));
+	if (s == NULL)
+	{
+		printf("Unsuccessful memory alocation!\n");
+		return FILE_DIDNT_OPEN_ERROR;
+	}
+	s->next = NULL;
+	x.next = s;
+	while (first != NULL)
+	{
+		second = q->next;
+		while (second != NULL)
+		{
+			s->coef = first->coef * second->coef;
+			s->exponent = first->exponent + second->exponent;
+
+			sum(&x, r, r);
+			second = second->next;
+		}
+		first = first->next;
 	}
 	return 0;
 }
